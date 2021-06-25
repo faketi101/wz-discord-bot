@@ -1,4 +1,3 @@
-const savePlayerData = require("../../helpers/save_player_data");
 
 module.exports = (Discord, bot, message) => {
   const prefix = process.env.BOT_PREFIX || "<";

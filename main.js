@@ -13,17 +13,17 @@ bot.events = new Discord.Collection();
   require(`./handlers/${handler}`)(bot, Discord);
 });
 
-mongoose
-  .connect(process.env.DB_CONNECT, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: true,
-  })
-  .then(() => {
-    console.log("Database Connected...");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// mongoose
+//   .connect(process.env.DB_CONNECT, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: true,
+//   })
+//   .then(() => {
+//     console.log("Database Connected...");
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 bot.login(process.env.BOT_TOKEN);
