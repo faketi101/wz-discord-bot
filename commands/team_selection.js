@@ -23,6 +23,17 @@ module.exports = {
     const getEmoji = (emojiName) =>
       bot.emojis.cache.find((emoji) => emoji.name === emojiName);
 
+    if (Number.isInteger(parseInt(args[0], 10))) {
+      return message.channel.send(`Please enter valid integer`);
+    }
+
+    //saving basics
+    if (args[0] && Number.isInteger(parseInt(args[0], 10))) {
+      await updateData.save(server_id, "pend_player", args[0]);
+    } else {
+      await updateData.save(server_id, "pend_player", 20);
+    }
+
     const emojis = {
       solo: "SOLO",
       duo: "DUO",
@@ -32,7 +43,9 @@ module.exports = {
 
     const reactions = [];
 
-    let emojiText = `Add a Reaction to Select Team Mode \n\n`;
+    let emojiText = `Add a Reaction to Select Team Mode ${
+      args[0] ? args[0] : 20
+    } Players to start match \n\n`;
     for (const key in emojis) {
       // console.log(key);
       const emoji = getEmoji(key);
@@ -71,34 +84,66 @@ module.exports = {
       // =========================================
 
       if (add) {
-        // console.log(member.user.id);
+        // console.log(roleName);
         // member.roles.add(role);\
         try {
-          await updateData.save(server_id, "total_reacts", member.user.id);
+          await updateData
+            .save(server_id, "total_reacts", member.user.id)
+            .then(async () => {
+              if (roleName === "SOLO") {
+                await updateData.save(server_id, "solo_reacts", member.user.id);
+              } else if (roleName === "DUO") {
+                await updateData.save(server_id, "duo_reacts", member.user.id);
+              } else if (roleName === "TRIO") {
+                await updateData.save(server_id, "trio_reacts", member.user.id);
+              } else if (roleName === "SQUAD") {
+                await updateData.save(
+                  server_id,
+                  "squad_reacts",
+                  member.user.id
+                );
+              }
+            });
         } catch (error) {
           errorHandler(message, error);
         }
-        // if (roleName === "SND") {
-        // } else if (roleName === "HARDPOINT") {
-        // } else if (roleName === "DOMINATION") {
-        // }
       } else {
         // console.log(member.user);
         // member.roles.remove(role);
 
         try {
-          await updateData.remove(server_id, "total_reacts", member.user.id);
+          await updateData
+            .remove(server_id, "total_reacts", member.user.id)
+            .then(async () => {
+              if (roleName === "SOLO") {
+                await updateData.remove(
+                  server_id,
+                  "solo_reacts",
+                  member.user.id
+                );
+              } else if (roleName === "DUO") {
+                await updateData.remove(
+                  server_id,
+                  "duo_reacts",
+                  member.user.id
+                );
+              } else if (roleName === "TRIO") {
+                await updateData.remove(
+                  server_id,
+                  "trio_reacts",
+                  member.user.id
+                );
+              } else if (roleName === "SQUAD") {
+                await updateData.remove(
+                  server_id,
+                  "squad_reacts",
+                  member.user.id
+                );
+              }
+            });
         } catch (error) {
           errorHandler(message, error);
         }
-
-        // if (roleName === "SND") {
-        // } else if (roleName === "HARDPOINT") {
-        // } else if (roleName === "DOMINATION") {
-        // } else {
-        // }
-        // console.log("removed");
-        // console.log(localData.reacted_all_users);
       }
     };
 

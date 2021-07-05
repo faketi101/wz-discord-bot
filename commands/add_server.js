@@ -19,6 +19,7 @@ module.exports = {
           duo_reacts: [],
           trio_reacts: [],
           squad_reacts: [],
+          players: null,
           channels: [
             {
               common_lobby: args[0],

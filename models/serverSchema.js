@@ -12,6 +12,10 @@ const serverSchema = new mongoose.Schema({
   duo_reacts: [],
   trio_reacts: [],
   squad_reacts: [],
+  players: {
+    type: String,
+    require: true,
+  },
 
   channels: [
     {
