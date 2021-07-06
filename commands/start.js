@@ -9,17 +9,17 @@ module.exports = {
   async execute(bot, message, args) {
     try {
       const server_id = message.guild.id;
-      const data = await serverData.find({ id: server_id });
+      const data = await serverData.findOne({ id: server_id });
 
       const total_reacts = data.total_reacts;
-      teamGenerator(message);
+      teamGenerator(message, null, null, data);
 
-      if (total_reacts.length == data.players) {
-        // configMatch(message);
-        // teamGenerator(message, total_reacts)
-      } else {
-        message.channel.send("Not enough players.");
-      }
+      // if (total_reacts.length == data.players) {
+      //   configMatch(message);
+      //   teamGenerator(message, total_reacts)
+      // } else {
+      //   message.channel.send("Not enough players.");
+      // }
     } catch (error) {
       errorHandler(null, error);
     }

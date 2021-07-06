@@ -1,7 +1,9 @@
-module.exports = (message, mode, ids) => {
-//   mode = "SOLO";
-//   ids = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010"];
-//   const total_player = ids.length;
+const createChannel = require("../helpers/create_channel");
+
+module.exports = (message, mode, ids, allData, matchId) => {
+  mode = "SQUAD";
+  ids = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010"];
+  //   const total_player = ids.length;
 
   let teams = [];
 
@@ -112,6 +114,21 @@ module.exports = (message, mode, ids) => {
       loc_array.splice(loc_array.length - 2, 2);
       teamNumber += 1;
     }
-}
-console.log(teams);
+  }
+  console.log(teams);
+  console.log(allData.parent_id);
+  console.log(matchId);
+  // teams.map(async (element, index) => {
+  //   await createChannel(message, allData.parent_id, element.name, "voice");
+  // });
+
+  function getMatchID() {
+    let randomNumber = new Date().getTime();
+    let id = `M${randomNumber}`;
+    return id;
+  }
+
+  createChannel(message, allData.parent_id, getMatchID(), teams);
+
+  return teams;
 };

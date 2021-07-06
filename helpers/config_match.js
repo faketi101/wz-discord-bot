@@ -7,6 +7,7 @@ module.exports = async (message) => {
   function getMatchID() {
     let randomNumber = new Date().getTime();
     let id = `M${randomNumber}`;
+    return id;
   }
 
   try {
@@ -28,7 +29,10 @@ module.exports = async (message) => {
     } else if (sqr > sr && sqr > dr && sqr > tr) {
       mode = "SQUAD";
     }
-    teamGenerator(message, mode, data.total_reacts);
+
+    const matchID = getMatchID();
+    // console.log(matchID);
+    teamGenerator(message, mode, data.total_reacts, data, matchID);
   } catch (error) {
     errorHandler(null, error);
   }

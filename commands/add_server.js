@@ -8,6 +8,9 @@ module.exports = {
     if (!args[0]) {
       return message.channel.send("please enter common lobby id");
     }
+    if (!args[1]) {
+      return message.channel.send("please parent category id");
+    }
     try {
       const checkServerId = await serverData.findOne({ id: server_id });
 
@@ -20,6 +23,7 @@ module.exports = {
           trio_reacts: [],
           squad_reacts: [],
           players: null,
+          parent_id: args[1],
           channels: [
             {
               common_lobby: args[0],

@@ -16,7 +16,10 @@ const serverSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-
+parent_id :{
+  type: String,
+    require: true,
+},
   channels: [
     {
       common_lobby: {
