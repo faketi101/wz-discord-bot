@@ -1,14 +1,20 @@
 const firstMessage = require("../helpers/first_message");
 const errorHandler = require("../handlers/error_handler");
 const updateData = require("../helpers/database_methods");
-const { update } = require("../models/serverSchema");
+const serverData = require("../models/serverSchema");
 
 module.exports = {
   name: "team",
   async execute(bot, message, args, Discord) {
-    const channelId = "854999976442331147";
-    const server_id = message.guild.id;
-
+    try {
+      var server_id = message.guild.id;
+      var data = await serverData.findOne({ id: server_id });
+      var channelId = data.channels.team_command;
+      // const channelId = "861969202084446238";
+      console.log(channelId);
+    } catch (error) {
+      errorHandler(message, error);
+    }
     const del_mess = async (message, id, limit) => {
       try {
         let channel = message.guild.channels.cache.find((ch) => ch.id == id);

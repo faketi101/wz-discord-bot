@@ -6,10 +6,13 @@ module.exports = {
   async execute(bot, message, args) {
     const server_id = message.guild.id;
     if (!args[0]) {
-      return message.channel.send("please enter common lobby id");
+      return message.channel.send("please enter team command id");
     }
     if (!args[1]) {
-      return message.channel.send("please parent category id");
+      return message.channel.send("please enter parent category id");
+    }
+    if (!args[2]) {
+      return message.channel.send("please enter common lobby id");
     }
     try {
       const checkServerId = await serverData.findOne({ id: server_id });
@@ -24,11 +27,11 @@ module.exports = {
           squad_reacts: [],
           players: null,
           parent_id: args[1],
-          channels: [
-            {
-              common_lobby: args[0],
-            },
-          ],
+          channels: {
+            team_command: args[0],
+            common_lobby: args[2],
+          },
+
           roles: [
             {
               common_lobby: "Common_lobby",

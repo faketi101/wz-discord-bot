@@ -117,7 +117,7 @@ module.exports = (message, mode, ids, allData, matchId) => {
   }
   console.log(teams);
   console.log(allData.parent_id);
-  console.log(matchId);
+  // console.log(matchId);
   // teams.map(async (element, index) => {
   //   await createChannel(message, allData.parent_id, element.name, "voice");
   // });

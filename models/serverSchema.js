@@ -20,14 +20,18 @@ parent_id :{
   type: String,
     require: true,
 },
-  channels: [
+  channels: 
     {
       common_lobby: {
         type: String,
         require: true,
       },
+      team_command:{
+        type: String,
+        require: true,
+      }
     },
-  ],
+  
   roles: [
     {
       common_lobby: {

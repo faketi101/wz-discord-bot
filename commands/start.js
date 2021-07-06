@@ -12,14 +12,14 @@ module.exports = {
       const data = await serverData.findOne({ id: server_id });
 
       const total_reacts = data.total_reacts;
-      teamGenerator(message, null, null, data);
+      // teamGenerator(message, null, null, data);
 
-      // if (total_reacts.length == data.players) {
-      //   configMatch(message);
-      //   teamGenerator(message, total_reacts)
-      // } else {
-      //   message.channel.send("Not enough players.");
-      // }
+      if (total_reacts.length == data.players) {
+        configMatch(message);
+        teamGenerator(message, total_reacts)
+      } else {
+        message.channel.send("Not enough players.");
+      }
     } catch (error) {
       errorHandler(null, error);
     }
