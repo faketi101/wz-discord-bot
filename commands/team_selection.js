@@ -26,18 +26,21 @@ module.exports = {
       }
     };
     del_mess(message, channelId, 7);
+
+    await updateData.reset(server_id);
+
     const getEmoji = (emojiName) =>
       bot.emojis.cache.find((emoji) => emoji.name === emojiName);
 
-    if (Number.isInteger(parseInt(args[0], 10))) {
+    // console.log(Number.isInteger(parseInt(args[0], 10)));
+    if (args[0] && !Number.isInteger(parseInt(args[0], 10))) {
       return message.channel.send(`Please enter valid integer`);
     }
-
     //saving basics
     if (args[0] && Number.isInteger(parseInt(args[0], 10))) {
-      await updateData.save(server_id, "pend_player", args[0]);
+      await updateData.save(server_id, "players", args[0]);
     } else {
-      await updateData.save(server_id, "pend_player", 20);
+      await updateData.save(server_id, "players", 20);
     }
 
     const emojis = {

@@ -16,7 +16,7 @@ module.exports = {
 
       if (total_reacts.length == data.players) {
         configMatch(message);
-        teamGenerator(message, total_reacts)
+        // teamGenerator(message, total_reacts)
       } else {
         message.channel.send("Not enough players.");
       }

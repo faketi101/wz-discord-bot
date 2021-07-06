@@ -1,8 +1,8 @@
 const createChannel = require("../helpers/create_channel");
 
 module.exports = (message, mode, ids, allData, matchId) => {
-  mode = "SQUAD";
-  ids = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010"];
+  // mode = "SQUAD";
+  // ids = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010"];
   //   const total_player = ids.length;
 
   let teams = [];

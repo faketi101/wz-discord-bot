@@ -1,5 +1,6 @@
 const serverData = require("../models/serverSchema");
 const errorHandler = require("../handlers/error_handler");
+const { reset } = require("nodemon");
 module.exports = {
   async save(server_id, array, id) {
     // console.log(array);
@@ -28,6 +29,11 @@ module.exports = {
         await serverData.updateOne(
           { id: server_id },
           { $addToSet: { squad_reacts: id } }
+        );
+      } else if (array === "players") {
+        await serverData.updateOne(
+          { id: server_id },
+          { $set: { players: id } }
         );
       }
     } catch (error) {
@@ -61,7 +67,31 @@ module.exports = {
           { id: server_id },
           { $pull: { squad_reacts: id } }
         );
+      } else if (array === "players") {
+        await serverData.updateOne(
+          { id: server_id },
+          { $set: { players: null } }
+        );
       }
+    } catch (error) {
+      errorHandler(null, error);
+    }
+  },
+
+  async reset(server_id) {
+    try {
+      await serverData.updateOne(
+        { id: server_id },
+        {
+          $set: {
+            total_reacts: [],
+            solo_reacts: [],
+            duo_reacts: [],
+            trio_reacts: [],
+            squad_reacts: [],
+          },
+        }
+      );
     } catch (error) {
       errorHandler(null, error);
     }
