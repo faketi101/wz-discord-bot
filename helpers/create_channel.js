@@ -9,19 +9,23 @@ module.exports = async (message, c_id, name, teams) => {
       .create(name, {
         type: "category",
       })
-      .then((channel) => {
+      .then((category) => {
+        deleteChannel(message, category.id, new Date().getTime() + 3600000);
+
         teams.map(async (element, index) => {
           await message.guild.channels
             .create(element.name, {
               type: "voice",
             })
             .then((channels) => {
-              channels.setParent(channel.id);
+              channels.setParent(category.id);
               let obj = {
                 name: channels.name,
                 id: channels.id,
               };
               setChannelArr.push(obj);
+              let nowTime = new Date().getTime();
+              deleteChannel(message, channels.id, nowTime + 3600000);
               if (setChannelArr.length === teams.length) {
                 // console.log(setChannelArr);
                 setVoice(message, setChannelArr, teams);

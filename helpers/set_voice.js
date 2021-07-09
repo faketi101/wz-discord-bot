@@ -12,27 +12,27 @@ module.exports = (message, chArr, teams) => {
       }
 
       if (!player.voice.channel) {
-        console.log(`${id} not in voice channel`);
+        console.log(`${p_id} not in voice channel`);
       } else {
         player.voice.setChannel(channel);
       }
     }
+    teams.map((element, index) => {
+      // console.log("element");
+      // console.log(element);
+      element.player.map((id) => {
+        // console.log("called");
+        setVoice(chArr[index].id, id);
+
+        // if (element.name == chArr.name) {
+        //   console.log("called");
+        //   setVoice(chArr.id, id);
+        // }
+      });
+    });
   } catch (error) {
     errorHandler(message, error);
   }
   // console.log("ch arr");
   // console.log(chArr);
-  teams.map((element, index) => {
-    // console.log("element");
-    // console.log(element);
-    element.player.map((id) => {
-      // console.log("called");
-      setVoice(chArr[index].id, id);
-
-      // if (element.name == chArr.name) {
-      //   console.log("called");
-      //   setVoice(chArr.id, id);
-      // }
-    });
-  });
 };

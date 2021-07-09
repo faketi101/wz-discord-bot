@@ -11,7 +11,7 @@ module.exports = async (message) => {
   }
 
   try {
-    const data = await serverData.find({ id: server_id });
+    const data = await serverData.findOne({ id: server_id });
 
     let mode;
     // selecting mode
