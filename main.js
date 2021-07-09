@@ -15,7 +15,7 @@ bot.events = new Discord.Collection();
 });
 
 setInterval(() => {
-  deleteChannel();
+  deleteChannel(bot);
 }, 360000);
 
 mongoose

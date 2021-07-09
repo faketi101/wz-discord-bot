@@ -4,13 +4,13 @@ module.exports = {
   name: "test",
   description: "test command",
   async execute(bot, message, args) {
-    if (args[0] == 1) {
+    if (args[0] === 1) {
       try {
         await deleteChannel(bot);
       } catch (error) {
         console.log(error);
       }
-    } else if (args[0] == 2) {
+    } else if (args[0] === 2) {
       try {
         message.guild.channels
           .create("test", {
@@ -40,6 +40,8 @@ module.exports = {
 
       const channel = server.channels.cache.get(message.channel.id);
       console.log(channel);
+    } else if (args[0] == 4) {
+      console.log(message.author);
     }
     // try {
     //   // console.log(args[0]);

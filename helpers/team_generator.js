@@ -1,4 +1,5 @@
 const createChannel = require("../helpers/create_channel");
+const sendStartMatchMess = require("./sendStartMatchMess");
 
 module.exports = (message, mode, ids, allData, matchId) => {
   // mode = "SQUAD";
@@ -116,7 +117,7 @@ module.exports = (message, mode, ids, allData, matchId) => {
     }
   }
   console.log(teams);
-  console.log(allData.parent_id);
+  // console.log(allData.parent_id);
   // console.log(matchId);
   // teams.map(async (element, index) => {
   //   await createChannel(message, allData.parent_id, element.name, "voice");
@@ -128,7 +129,19 @@ module.exports = (message, mode, ids, allData, matchId) => {
     return id;
   }
 
-  createChannel(message, allData.parent_id, getMatchID(), teams);
+  const matchID = getMatchID();
+  createChannel(message, allData.parent_id, matchID, teams).then(() => {
+    teams.forEach((team) => {
+      team.player.map((p_id) => {
+        let data = {
+          id: p_id,
+          team: team.name,
+          matchID: matchID,
+        };
+        sendStartMatchMess(message, data);
+      });
+    });
+  });
 
   return teams;
 };
