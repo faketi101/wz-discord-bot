@@ -1,5 +1,6 @@
 const sendDelete = require("../helpers/send_delete_channel");
 const deleteChannel = require("../helpers/delete_channel");
+const Discord = require("discord.js");
 module.exports = {
   name: "test",
   description: "test command",
@@ -39,9 +40,28 @@ module.exports = {
       );
 
       const channel = server.channels.cache.get(message.channel.id);
-      console.log(channel);
+      // console.log(channel);
     } else if (args[0] == 4) {
-      console.log(message.author);
+      let p = args[1];
+      p = p?.replace("<", "");
+      p = p?.replace("@", "");
+      p = p?.replace(">", "");
+      p = p?.replace("!", "");
+      // console.log(p);
+      // let player = message.guild.members.cache.find(
+      //   (user) => user.id == "756912425466593381"
+      // );
+      // console.log(player);
+      let embed = new Discord.MessageEmbed()
+        .setTitle("Test")
+        .setThumbnail(
+          args[1]
+            ? message.mentions.users.first().avatarURL({ dynamic: true })
+            : message.author.avatarURL()
+        );
+      // .setThumbnail(player.user.avatarURL({ dynamic: true }));
+      // console.log(message.member);
+      message.channel.send(embed);
     }
     // try {
     //   // console.log(args[0]);

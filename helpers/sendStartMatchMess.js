@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 module.exports = async (message, data) => {
   const player = message.guild.members.cache.find((user) => user.id == data.id);
-  console.log(player);
+  // console.log(player);
   let embed = new Discord.MessageEmbed()
     .setColor("#00DAFC")
     .setTitle("Your Match Info")
-    .setImage(player.displayAvatarURL)
+    .setThumbnail(player.user.avatarURL())
     .addField("Name: ", `<@${player.user.id}>`, false)
     .addFields(
       { name: "Match ID:", value: data.matchID, inline: false },
