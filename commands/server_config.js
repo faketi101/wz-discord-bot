@@ -67,51 +67,77 @@ module.exports = {
       async function createChanneles(message) {
         try {
           var id_obj = {};
-          message.guild.channels
-            .create("Warzone BOT", {
-              type: "category",
+          var everyoneRole = message.guild.roles.cache.find(
+            (r) => r.name === "@everyone"
+          );
+          var id_obj = {};
+          message.guild.roles
+            .create({
+              data: {
+                name: "view_bot_category",
+                color: "#00d9fc",
+              },
             })
-            .then((category) => {
+            .then((view_bot_role) => {
+              id_obj.view_bot = view_bot_role.id;
+            })
+            .then(() => {
               message.guild.channels
-                .create("commands", {
-                  type: "text",
+                .create("Warzone BOT", {
+                  type: "category",
+                  permissionOverwrites: [
+                    {
+                      id: everyoneRole.id,
+                      deny: ["VIEW_CHANNEL"],
+                    },
+                    {
+                      id: id_obj.view_bot,
+                      allow: ["VIEW_CHANNEL"],
+                    },
+                  ],
                 })
-                .then((ch_1) => {
-                  ch_1.setParent(category.id);
-                  id_obj.commands = ch_1.id;
-                  id_obj.parent = category.id;
-                })
-                .then(() => {
+                .then((category) => {
                   message.guild.channels
-                    .create("team_mode_selection", {
+                    .create("commands", {
                       type: "text",
                     })
-                    .then((ch_2) => {
-                      ch_2.setParent(category.id);
-                      id_obj.team_mode_selection = ch_2.id;
+                    .then((ch_1) => {
+                      ch_1.setParent(category.id);
+                      id_obj.commands = ch_1.id;
+                      id_obj.parent = category.id;
                     })
                     .then(() => {
                       message.guild.channels
-                        .create("waiting_lobby", {
-                          type: "voice",
+                        .create("team_mode_selection", {
+                          type: "text",
                         })
-                        .then((ch_3) => {
-                          ch_3.setParent(category.id);
-                          id_obj.waiting_lobby = ch_3.id;
+                        .then((ch_2) => {
+                          ch_2.setParent(category.id);
+                          id_obj.team_mode_selection = ch_2.id;
                         })
                         .then(() => {
-                          message.guild.roles
-                            .create({
-                              data: {
-                                name: "view_waiting",
-                                color: "#00d9fc",
-                              },
+                          message.guild.channels
+                            .create("waiting_lobby", {
+                              type: "voice",
                             })
-                            .then((role_1) => {
-                              id_obj.view_waiting = role_1.id;
+                            .then((ch_3) => {
+                              ch_3.setParent(category.id);
+                              id_obj.waiting_lobby = ch_3.id;
                             })
-                            .then(async () => {
-                              await saveData(id_obj);
+                            .then(() => {
+                              message.guild.roles
+                                .create({
+                                  data: {
+                                    name: "view_waiting",
+                                    color: "#00d9fc",
+                                  },
+                                })
+                                .then((role_1) => {
+                                  id_obj.view_waiting = role_1.id;
+                                })
+                                .then(async () => {
+                                  await saveData(id_obj);
+                                });
                             });
                         });
                     });
