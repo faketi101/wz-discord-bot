@@ -6,7 +6,10 @@ const serverSchema = new mongoose.Schema({
     unique: true,
     require: true,
   },
-
+  prefix: {
+    type: String,
+    require: true,
+  },
   total_reacts: [],
   solo_reacts: [],
   duo_reacts: [],
