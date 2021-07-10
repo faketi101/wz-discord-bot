@@ -130,7 +130,7 @@ module.exports = (message, mode, ids, allData, matchId) => {
   }
 
   const matchID = getMatchID();
-  createChannel(message, allData.parent_id, matchID, teams).then(() => {
+  createChannel(message, matchID, teams).then(() => {
     teams.forEach((team) => {
       team.player.map((p_id) => {
         let data = {

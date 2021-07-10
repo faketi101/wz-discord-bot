@@ -1,7 +1,7 @@
 const errorHandler = require("../handlers/error_handler");
 const setVoice = require("./set_voice");
 const deleteChannel = require("./send_delete_channel");
-module.exports = async (message, c_id, name, teams) => {
+module.exports = async (message, name, teams) => {
   // console.log(c_id);
   let setChannelArr = [];
   try {

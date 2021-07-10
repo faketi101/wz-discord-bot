@@ -16,10 +16,6 @@ const serverSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  parent_id: {
-    type: String,
-    require: true,
-  },
   channels: {
     common_lobby: {
       type: String,
@@ -29,16 +25,23 @@ const serverSchema = new mongoose.Schema({
       type: String,
       require: true,
     },
+    parent: {
+      type: String,
+      require: true,
+    },
+    commands: {
+      type: String,
+      require: true,
+    },
   },
 
-  roles: [
-    {
-      common_lobby: {
-        type: String,
-        require: true,
-      },
+  roles: {
+    common_lobby: {
+      type: String,
+      require: true,
     },
-  ],
+  },
+
   penalty_id: [
     {
       player_id: {

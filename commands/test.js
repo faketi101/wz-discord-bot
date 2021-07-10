@@ -1,5 +1,6 @@
 const sendDelete = require("../helpers/send_delete_channel");
 const deleteChannel = require("../helpers/delete_channel");
+const serverData = require("../models/serverSchema");
 const Discord = require("discord.js");
 module.exports = {
   name: "test",
@@ -11,11 +12,20 @@ module.exports = {
       } catch (error) {
         console.log(error);
       }
-    } else if (args[0] === 2) {
+    } else if (args[0] == 2) {
       try {
         message.guild.channels
           .create("test", {
             type: "category",
+            permissionsOverwrites: [
+              {
+                id: "843509310637080607",
+                // deny: ['MANAGE_MESSAGES'],
+                // allow: ['SEND_MESSAGES']
+                roles: ["843509310637080607"],
+                private: true,
+              },
+            ],
           })
           .then((category) => {
             message.guild.channels
@@ -47,11 +57,7 @@ module.exports = {
       p = p?.replace("@", "");
       p = p?.replace(">", "");
       p = p?.replace("!", "");
-      // console.log(p);
-      // let player = message.guild.members.cache.find(
-      //   (user) => user.id == "756912425466593381"
-      // );
-      // console.log(player);
+
       let embed = new Discord.MessageEmbed()
         .setTitle("Test")
         .setThumbnail(
@@ -59,18 +65,29 @@ module.exports = {
             ? message.mentions.users.first().avatarURL({ dynamic: true })
             : message.author.avatarURL()
         );
-      // .setThumbnail(player.user.avatarURL({ dynamic: true }));
-      // console.log(message.member);
       message.channel.send(embed);
+    } else if (args[0] == 5) {
+      async function deleteServer(message) {
+        const server_id = message.guild.id;
+
+        let data = await serverData.findOne({ id: server_id });
+        if (data) {
+          console.log(data.channels);
+          for (var key in data.channels) {
+            if (data.channels.hasOwnProperty(key)) {
+              if (data.channels[key] !== true) {
+                let channel = message.guild.channels.cache.find(
+                  (ch) => (ch.id = data.channels[key])
+                );
+                // console.log(data.channels[key]);
+                channel.delete();
+              }
+
+            }
+          }
+        } else message.channel.send("This server is not initialized yet!");
+      }
+      deleteServer(message);
     }
-    // try {
-    //   // console.log(args[0]);
-    //   const channel = await message.guild.channels.cache.find(
-    //     (chnl) => chnl.id == args[0]
-    //   );
-    //   console.log(channel);
-    // } catch (error) {
-    //   console.log(error);
-    // }
   },
 };
