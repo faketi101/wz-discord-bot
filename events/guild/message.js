@@ -3,12 +3,12 @@ const serverData = require("../../models/serverSchema");
 const firstEmbed = require("../../embeds/first_embed");
 module.exports = async (Discord, bot, message) => {
   try {
-    const server_id = message.guild.id;
+    const server_id = message?.guild?.id;
     const data = await serverData.findOne(
       { id: server_id },
       { channels: 1, prefix: 1 }
     );
-    const message_parent = message.channel.parent.id;
+    const message_parent = message?.channel?.parent?.id;
     const server_parent = data?.channels?.parent;
     const server_prefix = data?.prefix;
     const prefix = server_prefix || "-";

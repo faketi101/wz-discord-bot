@@ -82,12 +82,18 @@ module.exports = {
                 // console.log(data.channels[key]);
                 channel.delete();
               }
-
             }
           }
         } else message.channel.send("This server is not initialized yet!");
       }
       deleteServer(message);
+    } else if (args[0] == 6) {
+      // var everyoneRole = message.guild.roles.cache.find(
+      //   (r) => r.name === "@everyone"
+      // );
+      console.log(
+        message.member.roles.cache.find((rl) => rl.id === "863832191804375118")
+      );
     }
   },
 };

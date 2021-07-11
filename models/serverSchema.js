@@ -43,6 +43,14 @@ const serverSchema = new mongoose.Schema({
       type: String,
       require: true,
     },
+    bot_admin: {
+      type: String,
+      require: true,
+    },
+    view_bot_category: {
+      type: String,
+      require: true,
+    },
   },
 
   penalty_id: [
