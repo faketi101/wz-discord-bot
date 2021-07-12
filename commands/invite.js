@@ -4,7 +4,7 @@ module.exports = {
   name: "invite",
   description: "invite command",
   execute(bot, message, args, Disocrd) {
-    let embed = new DiscordAPIError.messageEmbed()
+    let embed = new Disocrd.messageEmbed()
       .setColor("#00ff00")
       .setTitle(`${bot.author.username}'s Invite link\n`)
       .addField(
