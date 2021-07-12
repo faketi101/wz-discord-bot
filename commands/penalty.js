@@ -13,7 +13,7 @@ module.exports = {
         if (args[0] && args[0] !== "remove") {
           if (args.length === 0)
             message.channel.send(`<@${message.author.id}> Mention a member`);
-          const time = 7200000;
+          const time = 6.048e8;
           // const time = 1000;
 
           const nowTime = new Date().getTime();
