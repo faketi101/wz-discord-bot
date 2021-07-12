@@ -4,7 +4,7 @@ module.exports = {
   name: "invite",
   description: "invite command",
   execute(bot, message, args, Disocrd) {
-    console.log(bot);
+//     console.log(bot);
     let embed = new Disocrd.MessageEmbed()
       .setColor("#00ff00")
       .setTitle(`${bot.user.username}'s Invite link\n`)
