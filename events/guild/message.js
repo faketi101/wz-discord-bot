@@ -36,7 +36,7 @@ module.exports = async (Discord, bot, message) => {
 
     if (command) {
       // if (message.author.id === "858029050425638972") return;
-      if (command.name === "server") {
+      if (command.name === "server" || command.name === "invite") {
         command.execute(bot, message, args, Discord);
       } else if (data && message_parent !== server_parent) {
         return;
