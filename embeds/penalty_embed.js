@@ -1,5 +1,5 @@
 module.exports = (message, Discord, bot, data, user) => {
-  console.log(user);
+  // console.log(user);
   function msToTime(ms) {
     let seconds = (ms / 1000).toFixed(1);
     let minutes = (ms / (1000 * 60)).toFixed(1);
@@ -15,7 +15,6 @@ module.exports = (message, Discord, bot, data, user) => {
   let embed = new Discord.MessageEmbed()
     .setColor("#fd0101")
     .setTitle(`Hey ${user.username}. \nYou heve been punished!!`)
-    .setImage(bot.user.displayAvatarURL())
     .setThumbnail(user.avatarURL())
     .addField(`Punishment will recover after: `, `${time}`, false)
     .setFooter("=============Thanks for using this bot=============");

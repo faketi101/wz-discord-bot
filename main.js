@@ -18,7 +18,7 @@ bot.events = new Discord.Collection();
 setInterval(async () => {
   await deleteChannel(bot);
   await deletePenalty();
-}, 360000);
+}, 60000);
 
 mongoose
   .connect(process.env.DB_CONNECT, {
