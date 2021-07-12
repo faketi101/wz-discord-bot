@@ -2,6 +2,7 @@ const addRole = require("../../helpers/add_role");
 const removeRole = require("../../helpers/remove_role");
 const servrerData = require("../../models/serverSchema");
 const errorHandler = require("../../handlers/error_handler");
+const penaltyEmbed = require("../../embeds/penalty_embed");
 module.exports = async (Discord, bot, oldVoice, newVoice) => {
   // console.log("called");
   // console.log(newVoice);
@@ -34,9 +35,12 @@ module.exports = async (Discord, bot, oldVoice, newVoice) => {
           // console.log(user.id);
           data.penalty_id.map((el) => {
             if (newVoice.id === el?.player_id) {
-              console.log(newVoice.id);
-              user.send("not allowed");
-            //   player.disconnect;
+              // console.log(player.voice);
+              // console.log(newvoice.kick(player));
+              let embed = penaltyEmbed(newVoice, Discord, bot, el, user);
+              user.send(embed);
+
+              newVoice.kick();
             }
           });
           addRole(newVoice, user.id, common_lobby_role_id);
